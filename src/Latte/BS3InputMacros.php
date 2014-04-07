@@ -2,12 +2,7 @@
 
 namespace BS3FormRenderer\Latte\Macros;
 
-use Nette\Forms\Controls\Button;
-use Nette\Forms\Controls\Checkbox;
-use Nette\Forms\Controls\ChoiceControl;
-use Nette\Forms\Controls\ImageButton;
-use Nette\Forms\Controls\SelectBox;
-use Nette\Forms\Controls\TextBase;
+use Nette\Forms\Controls;
 use Nette\Utils\Html;
 use Nette\Forms\Controls\BaseControl;
 use Nextras;
@@ -45,14 +40,17 @@ class BS3InputMacros extends BaseInputMacros
 		return $input;
 	}
 
-    public static function pair(BaseControl $control)
+    public static function pair(Html $input, BaseControl $control)
     {
 
         $label = $control->getLabel();
         $inp = $control->getControl();
 
 
-
+        if ($control instanceof Controls\Checkbox || $control instanceof Controls\CheckboxList || $control instanceof Controls\RadioList) {
+            $control->getSeparatorPrototype()->setName('div')->addClass($control->getControlPrototype()->type)->addClass('col-sm-offset-2');
+            return $control->getControl();
+        }
         $renderer = self::getRenderer($control);
 
         $html = Html::el($renderer->wrappers['pair']['container']);
@@ -60,7 +58,6 @@ class BS3InputMacros extends BaseInputMacros
             $html->add(Html::el($renderer->wrappers['label']['container'], ['class' => ($control->isRequired()?'required':'')])
                 ->add(self::label($label, $control)));
         }
-
         $html->add(Html::el($renderer->wrappers['control']['container'])->add(self::input($inp, $control)));
 
         return $html;

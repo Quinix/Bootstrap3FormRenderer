@@ -24,8 +24,8 @@ class Bs3FormRenderer extends DefaultFormRenderer
 		$this->wrappers['controls']['container'] = NULL;
 		$this->wrappers['pair']['container'] = 'div class=form-group';
 		$this->wrappers['pair']['.error'] = 'has-error';
-		$this->wrappers['control']['container'] = 'div class=col-sm-9';
-		$this->wrappers['label']['container'] = 'div class="col-sm-3 control-label"';
+		$this->wrappers['control']['container'] = 'div class=col-sm-6';
+		$this->wrappers['label']['container'] = 'div class="col-sm-2 control-label"';
 		$this->wrappers['control']['description'] = 'span class=help-block';
 		$this->wrappers['control']['errorcontainer'] = 'span class=help-block';
 	}
